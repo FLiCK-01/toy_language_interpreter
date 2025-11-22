@@ -246,3 +246,51 @@ Out:
 FileTable:
 -------------------------------------------
 
+ExeStack: 
+(VarDeclStmt{name=v, type=int};(v = ValueExpression{val=2};print(VariableExpression{id=v})))
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(v = ValueExpression{val=2};print(VariableExpression{id=v}))
+VarDeclStmt{name=v, type=int}
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(v = ValueExpression{val=2};print(VariableExpression{id=v}))
+SymTable:
+v ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+v = ValueExpression{val=2}
+SymTable:
+v ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+SymTable:
+v ---> 2
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+SymTable:
+v ---> 2
+Out:
+2
+FileTable:
+-------------------------------------------
+
