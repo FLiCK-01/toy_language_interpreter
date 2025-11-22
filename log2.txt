@@ -1,0 +1,176 @@
+ExeStack: 
+(VarDeclStmt{name=a, type=int};(VarDeclStmt{name=b, type=int};(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b})))))
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=b, type=int};(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))))
+VarDeclStmt{name=a, type=int}
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=b, type=int};(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))))
+SymTable:
+a ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b})))
+VarDeclStmt{name=b, type=int}
+SymTable:
+a ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b})))
+SymTable:
+a ---> 0
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))
+a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5}
+SymTable:
+a ---> 0
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))
+SymTable:
+a ---> 17
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=b})
+b = VariableExpression{id=a} ADD ValueExpression{val=1}
+SymTable:
+a ---> 17
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=b})
+SymTable:
+a ---> 17
+b ---> 18
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+SymTable:
+a ---> 17
+b ---> 18
+Out:
+18
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=a, type=int};(VarDeclStmt{name=b, type=int};(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b})))))
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=b, type=int};(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))))
+VarDeclStmt{name=a, type=int}
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=b, type=int};(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))))
+SymTable:
+a ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b})))
+VarDeclStmt{name=b, type=int}
+SymTable:
+a ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5};(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b})))
+SymTable:
+a ---> 0
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))
+a = ValueExpression{val=2} ADD ValueExpression{val=3} MULTIPLY ValueExpression{val=5}
+SymTable:
+a ---> 0
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(b = VariableExpression{id=a} ADD ValueExpression{val=1};print(VariableExpression{id=b}))
+SymTable:
+a ---> 17
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=b})
+b = VariableExpression{id=a} ADD ValueExpression{val=1}
+SymTable:
+a ---> 17
+b ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=b})
+SymTable:
+a ---> 17
+b ---> 18
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+SymTable:
+a ---> 17
+b ---> 18
+Out:
+18
+FileTable:
+-------------------------------------------
+

@@ -1,0 +1,97 @@
+ExeStack: 
+(VarDeclStmt{name=v1, type=int};(VarDeclStmt{name=v2, type=int};(v1 = ValueExpression{val=20};(v2 = ValueExpression{val=30};if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})}))))
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=v2, type=int};(v1 = ValueExpression{val=20};(v2 = ValueExpression{val=30};if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})})))
+VarDeclStmt{name=v1, type=int}
+SymTable:
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=v2, type=int};(v1 = ValueExpression{val=20};(v2 = ValueExpression{val=30};if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})})))
+SymTable:
+v1 ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(v1 = ValueExpression{val=20};(v2 = ValueExpression{val=30};if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})}))
+VarDeclStmt{name=v2, type=int}
+SymTable:
+v1 ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(v1 = ValueExpression{val=20};(v2 = ValueExpression{val=30};if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})}))
+SymTable:
+v1 ---> 0
+v2 ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(v2 = ValueExpression{val=30};if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})})
+v1 = ValueExpression{val=20}
+SymTable:
+v1 ---> 0
+v2 ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+(v2 = ValueExpression{val=30};if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})})
+SymTable:
+v1 ---> 20
+v2 ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})}
+v2 = ValueExpression{val=30}
+SymTable:
+v1 ---> 20
+v2 ---> 0
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+if(VariableExpression{id=v1} < VariableExpression{id=v2}){print(VariableExpression{id=v1})}else{print(VariableExpression{id=v2})}
+SymTable:
+v1 ---> 20
+v2 ---> 30
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v1})
+SymTable:
+v1 ---> 20
+v2 ---> 30
+Out:
+FileTable:
+-------------------------------------------
+
+ExeStack: 
+SymTable:
+v1 ---> 20
+v2 ---> 30
+Out:
+20
+FileTable:
+-------------------------------------------
+

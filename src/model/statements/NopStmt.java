@@ -1,0 +1,21 @@
+package model.statements;
+
+import exception.MyException;
+import model.PrgState;
+
+public class NopStmt implements IStmt{
+   @Override
+   public String toString(){
+       return "nop";
+   }
+
+    @Override
+    public PrgState execute(PrgState state) throws MyException {
+        return state;
+    }
+
+    @Override
+    public IStmt deepCopy() {
+        return  new NopStmt();
+    }
+}

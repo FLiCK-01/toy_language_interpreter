@@ -1,0 +1,30 @@
+package model.statements;
+
+import exception.MyException;
+import model.PrgState;
+import model.adt.MyIDictionary;
+import model.expressions.IExp;
+import model.values.IValue;
+
+public class PrintStmt implements IStmt{
+    IExp exp;
+
+    public PrintStmt(IExp exp){
+        this.exp = exp;
+    }
+    @Override
+    public String toString() {
+        return "print(" + exp.toString()+")";
+    }
+
+    @Override
+    public PrgState execute(PrgState state) throws MyException {
+        state.getOut().add(exp.eval(state.getSymTable()));
+        return state;
+    }
+
+    @Override
+    public IStmt deepCopy() {
+        return new PrintStmt(this.exp);
+    }
+}
