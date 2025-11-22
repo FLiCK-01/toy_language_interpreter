@@ -1,6 +1,7 @@
 package model.types;
 
 import model.values.IValue;
+import model.values.RefValue;
 
 public class RefType implements IType{
     IType inner;
@@ -19,7 +20,7 @@ public class RefType implements IType{
 
     @Override
     public IValue defaultValue() {
-        return RefValue(0, inner);
+        return new RefValue(0, inner);
     }
 
     public String toString() {
