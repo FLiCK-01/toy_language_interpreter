@@ -3,6 +3,7 @@ package repository;
 import exception.RepoException;
 import model.PrgState;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.adt.MyIList;
 import model.adt.MyIStack;
 import model.statements.IStmt;
@@ -61,6 +62,9 @@ public class Repository implements IRepo {
             for(StringValue key : fileTable.getContent().keySet()) {
                 logFile.println(key.toString());
             }
+
+            logFile.println("Heap:");
+            MyIHeap heap = prg.getHeap();
 
             logFile.println("-------------------------------------------\n");
         } catch (IOException e) {

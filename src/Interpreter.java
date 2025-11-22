@@ -122,7 +122,8 @@ public class Interpreter {
         MyIDictionary<String, IValue> symTable = new MyDictionary<>();
         MyIList<IValue> out = new MyList<>();
         MyIDictionary<StringValue, BufferedReader> fileTable = new MyDictionary<>();
+        MyIHeap heap = new MyHeap();
 
-        return new PrgState(exeStack, symTable, out, originalProgram, fileTable);
+        return new PrgState(exeStack, symTable, out, originalProgram, fileTable, heap);
     }
 }

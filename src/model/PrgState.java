@@ -1,6 +1,7 @@
 package model;
 
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.adt.MyIList;
 import model.adt.MyIStack;
 import model.statements.IStmt;
@@ -15,14 +16,16 @@ public class PrgState {
     private MyIList<IValue> out;
     private IStmt originalProgram;
     private MyIDictionary<StringValue, BufferedReader> fileTable;
+    private MyIHeap heap;
 
-    public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, IValue> symtbl, MyIList<IValue> ot, IStmt prg, MyIDictionary<StringValue, BufferedReader> filetbl) {
+    public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, IValue> symtbl, MyIList<IValue> ot, IStmt prg, MyIDictionary<StringValue, BufferedReader> filetbl, MyIHeap heap) {
         this.exeStack = stk;
         this.symTable = symtbl;
         this.out = ot;
         this.originalProgram = prg;
         this.fileTable = filetbl;
         this.exeStack.push(prg);
+        this.heap = heap;
     }
 
     public MyIList<IValue> getOut() {
@@ -34,6 +37,7 @@ public class PrgState {
     public MyIStack<IStmt> getExeStack() {
         return exeStack;
     }
+    public MyIHeap getHeap() {return heap;}
 
     public MyIDictionary<StringValue, BufferedReader> getFileTable() {
         return fileTable;
@@ -41,6 +45,6 @@ public class PrgState {
 
     @Override
     public String toString() {
-        return exeStack.toString()+ " " + symTable.toString()+ " " + out.toString();
+        return exeStack.toString()+ " " + symTable.toString()+ " " + out.toString() + " " + heap.toString();
     }
 }
