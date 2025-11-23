@@ -2,6 +2,7 @@ package model.statements;
 
 import exception.MyException;
 import model.PrgState;
+import model.adt.MyIHeap;
 import model.types.BoolType;
 import model.types.IType;
 import model.values.BoolValue;
@@ -22,7 +23,8 @@ public class IfStmt implements IStmt {
         return "if(" +exp+"){"+thenS+"}else{"+elseS+"}";
     }
     public PrgState execute(PrgState state) throws MyException {
-        IValue val = exp.eval(state.getSymTable());
+        MyIHeap heap = state.getHeap();
+        IValue val = exp.eval(state.getSymTable(), heap);
         if (val.getType().equals(new BoolType())) {
             BoolValue b = (BoolValue) val;
             if(b.getVal()) {

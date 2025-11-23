@@ -3,6 +3,7 @@ package model.statements;
 import exception.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.expressions.IExp;
 import model.types.IntType;
 import model.types.StringType;
@@ -26,6 +27,7 @@ public class ReadFile implements IStmt{
     public PrgState execute(PrgState state) throws MyException {
         MyIDictionary<String, IValue> symTable = state.getSymTable();
         MyIDictionary<StringValue, BufferedReader> fileTable = state.getFileTable();
+        MyIHeap heap = state.getHeap();
 
         if(!symTable.isDefined(var_name)){
             throw new MyException ("Variable '" + var_name + "' is not defined in the SymTable.");
@@ -36,7 +38,7 @@ public class ReadFile implements IStmt{
             throw new MyException("Variable '" + var_name + "' is not of type int.");
         }
 
-        IValue expValue = exp.eval(symTable);
+        IValue expValue = exp.eval(symTable, heap);
         if(!expValue.getType().equals(new StringType())) {
             throw new MyException("Expression of file name does not evaluate to a string type.");
         }

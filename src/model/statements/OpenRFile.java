@@ -2,6 +2,7 @@ package model.statements;
 
 import exception.MyException;
 import model.PrgState;
+import model.adt.MyIHeap;
 import model.expressions.IExp;
 import model.types.StringType;
 import model.values.IValue;
@@ -20,7 +21,8 @@ public class OpenRFile implements IStmt{
 
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        IValue expEval = exp.eval(state.getSymTable());
+        MyIHeap heap = state.getHeap();
+        IValue expEval = exp.eval(state.getSymTable(), heap);
 
         if(expEval.getType().equals(new StringType())) {
             StringValue value = (StringValue) expEval;

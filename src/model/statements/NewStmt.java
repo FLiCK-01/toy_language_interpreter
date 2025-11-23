@@ -33,7 +33,7 @@ public class NewStmt implements IStmt{
             throw new MyException("Variable "+var_name+" is not of type RefType.");
         }
 
-        IValue evaluated = exp.eval(symTable);
+        IValue evaluated = exp.eval(symTable, heap);
         IType locationType = ((RefType) value.getType()).getInner();
 
         if(!evaluated.getType().equals(locationType)){

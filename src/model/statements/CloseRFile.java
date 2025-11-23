@@ -3,6 +3,7 @@ package model.statements;
 import exception.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.expressions.IExp;
 import model.types.StringType;
 import model.values.IValue;
@@ -22,8 +23,9 @@ public class CloseRFile implements IStmt{
     public PrgState execute(PrgState state) throws MyException {
         MyIDictionary<String, IValue> symTable = state.getSymTable();
         MyIDictionary<StringValue, BufferedReader> fileTable = state.getFileTable();
+        MyIHeap heap = state.getHeap();
 
-        IValue expValue = exp.eval(symTable);
+        IValue expValue = exp.eval(symTable, heap);
         if(!expValue.getType().equals(new StringType())) {
             throw new MyException("Expression is not of string type.");
         }

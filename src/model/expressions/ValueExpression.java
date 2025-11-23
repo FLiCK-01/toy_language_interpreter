@@ -2,6 +2,7 @@ package model.expressions;
 
 import exception.MyException;
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.values.IValue;
 
 public class ValueExpression implements IExp {
@@ -10,7 +11,7 @@ public class ValueExpression implements IExp {
         this.val = val;
     }
 
-    public IValue eval(MyIDictionary<String, IValue> table) throws MyException {
+    public IValue eval(MyIDictionary<String, IValue> table, MyIHeap heap) throws MyException {
         return val;
     }
 
