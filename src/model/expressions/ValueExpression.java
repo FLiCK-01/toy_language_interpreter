@@ -15,6 +15,11 @@ public class ValueExpression implements IExp {
     }
 
     @Override
+    public IExp deepCopy() {
+        return new ValueExpression(this.val);
+    }
+
+    @Override
     public String toString() {
         return "ValueExpression{" + "val=" + val + '}';
     }

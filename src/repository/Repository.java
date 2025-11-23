@@ -65,6 +65,9 @@ public class Repository implements IRepo {
 
             logFile.println("Heap:");
             MyIHeap heap = prg.getHeap();
+            for(Map.Entry<Integer, IValue> entry : heap.getContent().entrySet()) {
+                logFile.println(entry.getKey() + " -> " + entry.getValue().toString());
+            }
 
             logFile.println("-------------------------------------------\n");
         } catch (IOException e) {

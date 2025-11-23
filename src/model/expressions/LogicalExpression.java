@@ -35,6 +35,11 @@ public class LogicalExpression implements IExp {
     }
 
     @Override
+    public IExp deepCopy() {
+        return new LogicalExpression(left.deepCopy(), right.deepCopy(), op);
+    }
+
+    @Override
     public String toString() {
         return "LogicalExpression{" + "left=" + left + ", right=" + right + ", op=" + op + '}';
     }

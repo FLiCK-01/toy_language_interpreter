@@ -42,6 +42,11 @@ public class ArithmeticalExpression implements IExp{
     }
 
     @Override
+    public IExp deepCopy() {
+        return new ArithmeticalExpression(exp1.deepCopy(), exp2.deepCopy(), operator);
+    }
+
+    @Override
     public String toString() {
         return exp1.toString() + " " + operator + " " + exp2.toString();
     }

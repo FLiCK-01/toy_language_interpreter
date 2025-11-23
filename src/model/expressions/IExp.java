@@ -7,4 +7,5 @@ import model.values.IValue;
 
 public interface IExp {
     public IValue eval(MyIDictionary<String, IValue> table) throws MyException;
+    IExp deepCopy();
 }

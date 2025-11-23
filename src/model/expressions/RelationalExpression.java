@@ -52,9 +52,9 @@ public class RelationalExpression implements IExp{
                 throw new MyException("Invalid relational operator.");
         }
     }
-
+    @Override
     public IExp deepCopy() {
-        return new RelationalExpression(this.exp1, this.exp2, this.operator);
+        return new RelationalExpression(exp1.deepCopy(), exp2.deepCopy(), operator);
     }
 
     @Override
