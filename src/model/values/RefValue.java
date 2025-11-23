@@ -28,4 +28,9 @@ public class RefValue implements IValue {
     public int getAddr() {
         return address;
     }
+
+    @Override
+    public String toString() {
+        return "RefValue{" + "address=" + address + ", locationType=" + locationType + '}';
+    }
 }

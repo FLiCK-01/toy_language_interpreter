@@ -106,12 +106,70 @@ public class Interpreter {
         repo5.addPrgState(prg5);
         IController crt5 = new Controller(repo5);
 
+        IStmt ex6 = new CompStmt(
+                new VarDeclStmt("v", new RefType(new IntType())),
+                new CompStmt(
+                        new NewStmt("v", new ValueExpression(new IntValue(20))),
+                        new CompStmt(
+                                new VarDeclStmt("a", new RefType(new RefType(new IntType()))),
+                                new CompStmt(
+                                        new NewStmt("a", new VariableExpression("v")),
+                                        new CompStmt(
+                                                new NewStmt("v", new ValueExpression(new IntValue(30))),
+                                                new PrintStmt(
+                                                        new ReadHeapExp(
+                                                                new ReadHeapExp(new VariableExpression("a"))
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+        PrgState prg6 = createPrgState(ex6);
+        IRepo repo6 = new Repository("log6.txt");
+        repo6.addPrgState(prg6);
+        IController crt6 = new Controller(repo6);
+
+        IStmt ex7 = new CompStmt(
+                new VarDeclStmt("v", new IntType()),
+                new CompStmt(
+                        new AssignStmt("v", new ValueExpression(new IntValue(4))),
+                        new CompStmt(
+                                new WhileStmt(
+                                        new RelationalExpression(
+                                                new VariableExpression("v"),
+                                                new ValueExpression(new IntValue(0)),
+                                                RelationalOperator.GREATER_THAN
+                                        ),
+                                        new CompStmt(
+                                                new PrintStmt(new VariableExpression("v")),
+                                                new AssignStmt("v", new ArithmeticalExpression(
+                                                        new VariableExpression("v"),
+                                                        new ValueExpression(new IntValue(1)),
+                                                        ArithmeticalOperators.SUBTRACT
+                                                ))
+                                        )
+                                ),
+                                new PrintStmt(new VariableExpression("v"))
+                        )
+                )
+        );
+
+        PrgState prg7 = createPrgState(ex7);
+        IRepo repo7 = new Repository("log7.txt");
+        repo7.addPrgState(prg7);
+        IController ctr7 = new Controller(repo7);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new RunExample("1", ex1.toString(), ctr1));
         menu.addCommand(new RunExample("2", ex2.toString(), ctr2));
         menu.addCommand(new RunExample("3", ex3.toString(), ctr3));
         menu.addCommand(new RunExample("4", ex4.toString(), ctr4));
         menu.addCommand(new RunExample("5", ex5.toString(), crt5));
+        menu.addCommand(new RunExample("6", ex6.toString(), crt6));
+        menu.addCommand(new RunExample("7", ex7.toString(), ctr7));
         menu.addCommand(new ExitCommand("0", "exit"));
 
         menu.show();

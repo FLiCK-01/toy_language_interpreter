@@ -61,7 +61,6 @@ public class Controller implements IController {
         while(!exeStack.isEmpty()) {
             oneStep();
 
-            prg.getHeap().setContent(safeGarbageCollector(getAddrFromValues(prg.getSymTable().getContent().values()), prg.getHeap().getContent()));
             List<Integer> symTableAddresses = getAddrFromValues(prg.getSymTable().getContent().values());
             List<Integer> heapAddresses = getAddrFromValues(prg.getHeap().getContent().values());
             List<Integer> allActiveAddresses = Stream.concat(symTableAddresses.stream(), heapAddresses.stream()).distinct().collect(Collectors.toList());
