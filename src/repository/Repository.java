@@ -25,19 +25,14 @@ public class Repository implements IRepo {
     }
 
     @Override
-    public PrgState getCrtPrg() {
-        return states.get(0);
-    }
-
-    @Override
     public void addPrgState(PrgState prgState) {
         states.add(prgState);
     }
 
     @Override
-    public void logPrgState() throws IOException, RepoException {
+    public void logPrgState(PrgState prgState) throws IOException, RepoException {
         try (PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
-            PrgState prg = this.getCrtPrg();
+            PrgState prg = prgState;
             logFile.println("ExeStack: ");
             MyIStack<IStmt> stack = prg.getExeStack();
 
@@ -78,5 +73,15 @@ public class Repository implements IRepo {
     @Override
     public void clearPrgState() {
         states.clear();
+    }
+
+    @Override
+    public List<PrgState> getPrgList() {
+        return this.states;
+    }
+
+    @Override
+    public void setPrgList(List<PrgState> prgList) {
+        this.states = prgList;
     }
 }

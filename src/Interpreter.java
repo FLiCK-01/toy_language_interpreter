@@ -116,11 +116,7 @@ public class Interpreter {
                                         new NewStmt("a", new VariableExpression("v")),
                                         new CompStmt(
                                                 new NewStmt("v", new ValueExpression(new IntValue(30))),
-                                                new PrintStmt(
-                                                        new ReadHeapExp(
-                                                                new ReadHeapExp(new VariableExpression("a"))
-                                                        )
-                                                )
+                                                new NewStmt("v", new ValueExpression(new IntValue(15)))
                                         )
                                 )
                         )
