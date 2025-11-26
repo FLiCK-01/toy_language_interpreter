@@ -1,5 +1,6 @@
 package model;
 
+import exception.MyException;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.adt.MyIList;
@@ -17,6 +18,8 @@ public class PrgState {
     private IStmt originalProgram;
     private MyIDictionary<StringValue, BufferedReader> fileTable;
     private MyIHeap heap;
+    private static int nextId = 0;
+    private int id;
 
     public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, IValue> symtbl, MyIList<IValue> ot, IStmt prg, MyIDictionary<StringValue, BufferedReader> filetbl, MyIHeap heap) {
         this.exeStack = stk;
@@ -26,6 +29,8 @@ public class PrgState {
         this.fileTable = filetbl;
         this.exeStack.push(prg);
         this.heap = heap;
+        this.id = getNextId();
+        this.exeStack.push(this.originalProgram);
     }
 
     public MyIList<IValue> getOut() {
@@ -38,9 +43,30 @@ public class PrgState {
         return exeStack;
     }
     public MyIHeap getHeap() {return heap;}
+    public synchronized int getNextId() {return ++this.nextId;}
+    public int getId() {return id;}
 
     public MyIDictionary<StringValue, BufferedReader> getFileTable() {
         return fileTable;
+    }
+
+    PrgState oneStep() {
+        MyIStack<IStmt> exeStack = this.getExeStack();
+        IStmt stmt = exeStack.pop();
+        try {
+            stmt.execute(this);
+        } catch (MyException e) {
+            throw new RuntimeException(e);
+        }
+        if(displayFlag) {
+            System.out.println("- - - After 1 Step - - -");
+            System.out.println(this.toString());
+        }
+        repo.logPrgState();
+    }
+
+    public boolean isNotCompleted() {
+        return !exeStack.isEmpty();
     }
 
     @Override

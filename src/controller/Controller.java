@@ -37,19 +37,12 @@ public class Controller implements IController {
 
     @Override
     public void oneStep() throws IOException, MyException, RepoException {
-        MyIStack<IStmt> exeStack = repo.getCrtPrg().getExeStack();
-        IStmt stmt = exeStack.pop();
-        stmt.execute(repo.getCrtPrg());
-        if(displayFlag) {
-            System.out.println("- - - After 1 Step - - -");
-            System.out.println(repo.getCrtPrg().toString());
-        }
-        repo.logPrgState();
+
     }
 
     @Override
     public void allStep() throws IOException, MyException, RepoException {
-        PrgState prg = repo.getCrtPrg();
+        PrgState prg;
         if(displayFlag) {
             System.out.println("- - - Initial State - - -");
             System.out.println(prg.toString());

@@ -36,6 +36,16 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     }
 
     @Override
+    public MyIDictionary<K, V> deepCopy() {
+        MyDictionary<K,V> copy = new MyDictionary<>();
+        for(K key : map.keySet()) {
+            copy.put(key, map.get(key));
+        }
+
+        return copy;
+    }
+
+    @Override
     public String toString() {
         return map.toString();
     }
