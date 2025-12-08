@@ -5,6 +5,7 @@ import model.PrgState;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.expressions.IExp;
+import model.types.IType;
 import model.types.RefType;
 import model.values.IValue;
 import model.values.RefValue;
@@ -39,9 +40,10 @@ public class WriteHeapStmt implements IStmt{
         }
 
         IValue evaluated = exp.eval(symTable, heap);
+        RefType refType = (RefType) value.getType();
+        IType locationType = refType.getInner();
 
-        RefType refType = (RefType) evaluated.getType();
-        if(!evaluated.getType().equals(refType.getInner())) {
+        if(!evaluated.getType().equals(locationType)) {
             throw new MyException("Expression type does not match variable reference type.");
         }
 

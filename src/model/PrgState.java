@@ -27,7 +27,6 @@ public class PrgState {
         this.out = ot;
         this.originalProgram = prg;
         this.fileTable = filetbl;
-        this.exeStack.push(prg);
         this.heap = heap;
         this.id = getNextId();
         this.exeStack.push(this.originalProgram);
