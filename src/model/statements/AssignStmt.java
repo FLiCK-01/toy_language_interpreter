@@ -38,7 +38,7 @@ public class AssignStmt implements IStmt{
 
         }
         else throw new MyException("variable "+id+" is not defined");
-        return state;
+        return null;
     }
 
     @Override

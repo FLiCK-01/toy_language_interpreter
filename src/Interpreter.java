@@ -158,6 +158,45 @@ public class Interpreter {
         repo7.addPrgState(prg7);
         IController ctr7 = new Controller(repo7);
 
+        IStmt ex8 = new CompStmt(
+                new VarDeclStmt("v", new IntType()),
+                new CompStmt(
+                        new AssignStmt("v", new ValueExpression(new IntValue(10))),
+                        new CompStmt(
+                                new ForkStmt(
+                                        new CompStmt(
+                                                new AssignStmt("v", new ValueExpression(new IntValue(30))),
+                                                new PrintStmt(new VariableExpression("v"))
+                                        )
+                                ),
+                                new PrintStmt(new VariableExpression("v"))
+                        )
+                )
+        );
+
+        PrgState prg8 = createPrgState(ex8);
+        IRepo repo8 = new Repository("log8.txt");
+        repo8.addPrgState(prg8);
+        IController ctr8 = new Controller(repo8);
+
+        IStmt ex9 = new CompStmt(
+                new VarDeclStmt("a", new RefType(new IntType())),
+                new CompStmt(
+                        new NewStmt("a", new ValueExpression(new IntValue(10))),
+                        new CompStmt(
+                                new ForkStmt(
+                                        new WriteHeapStmt("a", new ValueExpression(new IntValue(20)))
+                                ),
+                                new PrintStmt(new ReadHeapExp(new VariableExpression("a")))
+                        )
+                )
+        );
+
+        PrgState prg9 = createPrgState(ex9);
+        IRepo repo9 = new Repository("log9.txt");
+        repo9.addPrgState(prg9);
+        IController ctr9 = new Controller(repo9);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new RunExample("1", ex1.toString(), ctr1));
         menu.addCommand(new RunExample("2", ex2.toString(), ctr2));
@@ -166,6 +205,8 @@ public class Interpreter {
         menu.addCommand(new RunExample("5", ex5.toString(), crt5));
         menu.addCommand(new RunExample("6", ex6.toString(), crt6));
         menu.addCommand(new RunExample("7", ex7.toString(), ctr7));
+        menu.addCommand(new RunExample("8", ex8.toString(), ctr8));
+        menu.addCommand(new RunExample("9", ex9.toString(), ctr9));
         menu.addCommand(new ExitCommand("0", "exit"));
 
         menu.show();

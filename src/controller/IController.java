@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface IController {
     void oneStepForAllPrg(List<PrgState> prgList) throws InterruptedException;
+    public void allStep() throws InterruptedException, MyException;
     void setDisplayFlag(boolean displayFlag);
     boolean getDisplayFlag();
     void addPrgState(PrgState prgState);

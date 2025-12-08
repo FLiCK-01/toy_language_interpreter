@@ -22,7 +22,7 @@ public class PrintStmt implements IStmt{
     public PrgState execute(PrgState state) throws MyException {
         MyIHeap heap = state.getHeap();
         state.getOut().add(exp.eval(state.getSymTable(), heap));
-        return state;
+        return null;
     }
 
     @Override

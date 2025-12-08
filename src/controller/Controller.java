@@ -81,27 +81,22 @@ public class Controller implements IController {
         repo.setPrgList(prgList);
     }
 
-    public void allStep() throws InterruptedException, MyException {
+    @Override
+    public void allStep() throws InterruptedException {
         executor = Executors.newFixedThreadPool(2);
 
         List<PrgState> prgList = removeCompletedPrg(repo.getPrgList());
 
-        while(prgList.size() > 0) {}
-        List<Integer> symTableAddresses = prgList.stream().flatMap(p ->getAddrFromValues(p.getSymTable().getContent().values()).stream()).collect(Collectors.toList());
-        List<Integer> heapAddresses = getAddrFromValues(prgList.get(0).getHeap().getContent().values());
-        List<Integer> allActiveAddresses = Stream.concat(symTableAddresses.stream(), heapAddresses.stream()).distinct().collect(Collectors.toList());
+        while (prgList.size() > 0) {
+            oneStepForAllPrg(prgList);
 
-        prgList.get(0).getHeap().setContent(
-                safeGarbageCollector(allActiveAddresses, prgList.get(0).getHeap().getContent())
-        );
+            prgList = removeCompletedPrg(repo.getPrgList());
+        }
 
-        oneStepForAllPrg(prgList);
-
-        prgList = removeCompletedPrg(repo.getPrgList());
         executor.shutdownNow();
+
         repo.setPrgList(prgList);
     }
-
     private List<PrgState> removeCompletedPrograms(List<PrgState> programList) {
         return programList.stream().filter(PrgState::isNotCompleted).toList();
     }

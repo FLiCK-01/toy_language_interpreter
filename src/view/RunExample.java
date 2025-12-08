@@ -18,12 +18,12 @@ public class RunExample extends Command{
     public void execute() {
         try {
             ctr.allStep();
-
-            System.out.println("\n - - - Program output - - -");
-            System.out.println(ctr.getCrtProgram().getOut().toString());
-            System.out.println("------------------------------\n");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Execution interrupted: " + e.getMessage());
+        } catch (MyException e) {
+            System.out.println("Interpreter error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Execution error: " + e.getMessage());
         }
     }
 }

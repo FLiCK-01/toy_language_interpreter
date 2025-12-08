@@ -69,7 +69,7 @@ public class ReadFile implements IStmt{
             throw new MyException ("Error reading file '" + fileName + "'.");
         }
 
-        return state;
+        return null;
     }
 
     @Override

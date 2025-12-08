@@ -39,7 +39,7 @@ public class OpenRFile implements IStmt{
             throw new MyException("file name must be a string value.");
         }
 
-        return state;
+        return null;
     }
 
     @Override

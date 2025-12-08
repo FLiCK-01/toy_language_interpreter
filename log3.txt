@@ -1,0 +1,210 @@
+ExeStack: 
+(VarDeclStmt{name=a, type=bool};(VarDeclStmt{name=v, type=int};(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v})))))
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=v, type=int};(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))))
+VarDeclStmt{name=a, type=bool}
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=v, type=int};(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))))
+VarDeclStmt{name=a, type=bool}
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=v, type=int};(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))))
+SymTable:
+a ---> false
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(VarDeclStmt{name=v, type=int};(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))))
+SymTable:
+a ---> false
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v})))
+VarDeclStmt{name=v, type=int}
+SymTable:
+a ---> false
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v})))
+VarDeclStmt{name=v, type=int}
+SymTable:
+a ---> false
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v})))
+SymTable:
+a ---> false
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(a = ValueExpression{val=true};(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v})))
+SymTable:
+a ---> false
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))
+a = ValueExpression{val=true}
+SymTable:
+a ---> false
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))
+a = ValueExpression{val=true}
+SymTable:
+a ---> false
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))
+SymTable:
+a ---> true
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+(if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}};print(VariableExpression{id=v}))
+SymTable:
+a ---> true
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}}
+SymTable:
+a ---> true
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+if(VariableExpression{id=a}){v = ValueExpression{val=2}}else{v = ValueExpression{val=3}}
+SymTable:
+a ---> true
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+v = ValueExpression{val=2}
+SymTable:
+a ---> true
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+v = ValueExpression{val=2}
+SymTable:
+a ---> true
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+SymTable:
+a ---> true
+v ---> 2
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+print(VariableExpression{id=v})
+SymTable:
+a ---> true
+v ---> 2
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+SymTable:
+a ---> true
+v ---> 2
+Out:
+2
+FileTable:
+Heap:
+-------------------------------------------
+
+ExeStack: 
+SymTable:
+a ---> true
+v ---> 2
+Out:
+2
+FileTable:
+Heap:
+-------------------------------------------
+
