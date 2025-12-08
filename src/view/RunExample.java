@@ -22,8 +22,8 @@ public class RunExample extends Command{
             System.out.println("\n - - - Program output - - -");
             System.out.println(ctr.getCrtProgram().getOut().toString());
             System.out.println("------------------------------\n");
-        } catch (MyException | RepoException | IOException e) {
-            System.err.println("Execution error: " + e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -50,19 +50,13 @@ public class PrgState {
         return fileTable;
     }
 
-    PrgState oneStep() {
-        MyIStack<IStmt> exeStack = this.getExeStack();
+    public PrgState oneStep() throws MyException {
+        if(exeStack.isEmpty()) {
+            throw new MyException("Prg state stack is empty.");
+        }
+
         IStmt stmt = exeStack.pop();
-        try {
-            stmt.execute(this);
-        } catch (MyException e) {
-            throw new RuntimeException(e);
-        }
-        if(displayFlag) {
-            System.out.println("- - - After 1 Step - - -");
-            System.out.println(this.toString());
-        }
-        repo.logPrgState();
+        return stmt.execute(this);
     }
 
     public boolean isNotCompleted() {
@@ -71,6 +65,6 @@ public class PrgState {
 
     @Override
     public String toString() {
-        return exeStack.toString()+ " " + symTable.toString()+ " " + out.toString() + " " + heap.toString();
+        return "id: " + id + exeStack.toString()+ " " + symTable.toString()+ " " + out.toString() + " " + heap.toString();
     }
 }

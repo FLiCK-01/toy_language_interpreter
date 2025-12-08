@@ -6,13 +6,12 @@ import model.PrgState;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public interface IController {
-    void oneStep() throws IOException, MyException, RepoException;
-    void allStep() throws IOException, MyException, RepoException;
+    void oneStepForAllPrg(List<PrgState> prgList) throws InterruptedException;
     void setDisplayFlag(boolean displayFlag);
     boolean getDisplayFlag();
     void addPrgState(PrgState prgState);
     void clearPrgState();
-    PrgState getCrtProgram();
 }

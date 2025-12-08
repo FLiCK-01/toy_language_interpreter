@@ -21,4 +21,9 @@ public class ForkStmt implements IStmt{
     public IStmt deepCopy() {
         return new ForkStmt(inner.deepCopy());
     }
+
+    @Override
+    public String toString() {
+        return "fork(" + inner.toString() + ")";
+    }
 }
