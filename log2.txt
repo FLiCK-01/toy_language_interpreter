@@ -1,0 +1,285 @@
+ID: 2
+ExeStack: 
+(VarDeclStmt{name=a, type=Ref(int)};(new(a, ValueExpression{val=10});(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop))))
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(new(a, ValueExpression{val=10});(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop)))
+VarDeclStmt{name=a, type=Ref(int)}
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(new(a, ValueExpression{val=10});(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop)))
+VarDeclStmt{name=a, type=Ref(int)}
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(new(a, ValueExpression{val=10});(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop)))
+SymTable:
+a ---> RefValue{address=0, locationType=int}
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(new(a, ValueExpression{val=10});(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop)))
+SymTable:
+a ---> RefValue{address=0, locationType=int}
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop))
+new(a, ValueExpression{val=10})
+SymTable:
+a ---> RefValue{address=0, locationType=int}
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop))
+new(a, ValueExpression{val=10})
+SymTable:
+a ---> RefValue{address=0, locationType=int}
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop))
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop))
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(print(rH(VariableExpression{id=a}));nop)
+fork((new(a, ValueExpression{val=50});nop))
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(print(rH(VariableExpression{id=a}));nop)
+fork((new(a, ValueExpression{val=50});nop))
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(print(rH(VariableExpression{id=a}));nop)
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+(new(a, ValueExpression{val=50});nop)
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+(print(rH(VariableExpression{id=a}));nop)
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+(new(a, ValueExpression{val=50});nop)
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+nop
+print(rH(VariableExpression{id=a}))
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+nop
+new(a, ValueExpression{val=50})
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+nop
+print(rH(VariableExpression{id=a}))
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+nop
+new(a, ValueExpression{val=50})
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+FileTable:
+Heap:
+1 -> 10
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+nop
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+10
+FileTable:
+Heap:
+1 -> 10
+2 -> 50
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+nop
+SymTable:
+a ---> RefValue{address=2, locationType=int}
+Out:
+10
+FileTable:
+Heap:
+1 -> 10
+2 -> 50
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+nop
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+10
+FileTable:
+Heap:
+1 -> 10
+2 -> 50
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+nop
+SymTable:
+a ---> RefValue{address=2, locationType=int}
+Out:
+10
+FileTable:
+Heap:
+1 -> 10
+2 -> 50
+-------------------------------------------
+
+ID: 2
+ExeStack: 
+SymTable:
+a ---> RefValue{address=1, locationType=int}
+Out:
+10
+FileTable:
+Heap:
+1 -> 10
+2 -> 50
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+SymTable:
+a ---> RefValue{address=2, locationType=int}
+Out:
+10
+FileTable:
+Heap:
+1 -> 10
+2 -> 50
+-------------------------------------------
+

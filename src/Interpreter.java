@@ -45,9 +45,9 @@ public class Interpreter {
                         new NewStmt("a", new ValueExpression(new IntValue(10))),
                         new CompStmt(
                                 new ForkStmt(
-                                        new WriteHeapStmt("a", new ValueExpression(new IntValue(20)))
+                                        new CompStmt(new NewStmt("a", new ValueExpression(new IntValue(50))), new NopStmt())
                                 ),
-                                new PrintStmt(new ReadHeapExp(new VariableExpression("a")))
+                                new CompStmt(new PrintStmt(new ReadHeapExp(new VariableExpression("a"))), new NopStmt())
                         )
                 )
         );
