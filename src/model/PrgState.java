@@ -64,6 +64,6 @@ public class PrgState {
 
     @Override
     public String toString() {
-        return "id: " + id + exeStack.toString()+ " " + symTable.toString()+ " " + out.toString() + " " + heap.toString();
+        return "id: " + id +"\n" + exeStack.toString()+ " " + symTable.toString()+ " " + out.toString() + " " + heap.toString();
     }
 }

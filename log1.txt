@@ -1,0 +1,220 @@
+ID: 1
+ExeStack: 
+(VarDeclStmt{name=v, type=int};(v = ValueExpression{val=10};(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v}))))
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(v = ValueExpression{val=10};(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v})))
+VarDeclStmt{name=v, type=int}
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(v = ValueExpression{val=10};(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v})))
+VarDeclStmt{name=v, type=int}
+SymTable:
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(v = ValueExpression{val=10};(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v})))
+SymTable:
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(v = ValueExpression{val=10};(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v})))
+SymTable:
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v}))
+v = ValueExpression{val=10}
+SymTable:
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v}))
+v = ValueExpression{val=10}
+SymTable:
+v ---> 0
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v}))
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+(fork((v = ValueExpression{val=30};print(VariableExpression{id=v})));print(VariableExpression{id=v}))
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+print(VariableExpression{id=v})
+fork((v = ValueExpression{val=30};print(VariableExpression{id=v})))
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+print(VariableExpression{id=v})
+fork((v = ValueExpression{val=30};print(VariableExpression{id=v})))
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+print(VariableExpression{id=v})
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+(v = ValueExpression{val=30};print(VariableExpression{id=v}))
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+print(VariableExpression{id=v})
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+(v = ValueExpression{val=30};print(VariableExpression{id=v}))
+SymTable:
+v ---> 10
+Out:
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 1
+ExeStack: 
+SymTable:
+v ---> 10
+Out:
+10
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+print(VariableExpression{id=v})
+v = ValueExpression{val=30}
+SymTable:
+v ---> 10
+Out:
+10
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+print(VariableExpression{id=v})
+v = ValueExpression{val=30}
+SymTable:
+v ---> 10
+Out:
+10
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+print(VariableExpression{id=v})
+SymTable:
+v ---> 30
+Out:
+10
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+print(VariableExpression{id=v})
+SymTable:
+v ---> 30
+Out:
+10
+FileTable:
+Heap:
+-------------------------------------------
+
+ID: 3
+ExeStack: 
+SymTable:
+v ---> 30
+Out:
+10
+30
+FileTable:
+Heap:
+-------------------------------------------
+

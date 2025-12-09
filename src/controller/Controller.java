@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,16 +49,12 @@ public class Controller implements IController {
         prgList.forEach(prg -> {
             try{
                 repo.logPrgState(prg);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (RepoException e) {
+            } catch (IOException|RepoException e) {
                 throw new RuntimeException(e);
             }
         });
 
-        List<Callable<PrgState>> callList = prgList.stream().map((PrgState p) -> (Callable<PrgState>) (() -> {
-            return p.oneStep();
-        })).collect(Collectors.toList());
+        List<Callable<PrgState>> callList = prgList.stream().map((PrgState p) -> (Callable<PrgState>) (p::oneStep)).collect(Collectors.toList());
 
         List<PrgState> newList = executor.invokeAll(callList).stream().map(future -> {
             try{
@@ -66,7 +63,7 @@ public class Controller implements IController {
                 System.out.println(e.getMessage());
                 return null;
             }
-        }).filter(p -> p != null).collect(Collectors.toList());
+        }).filter(Objects::nonNull).toList();
 
         prgList.addAll(newList);
 
@@ -74,7 +71,7 @@ public class Controller implements IController {
             try{
                 repo.logPrgState(prg);
             } catch (IOException | RepoException e) {
-                System.out.println(e.getMessage());
+                throw new RuntimeException(e.getMessage());
             }
         });
 
@@ -88,7 +85,22 @@ public class Controller implements IController {
         List<PrgState> prgList = removeCompletedPrg(repo.getPrgList());
 
         while (prgList.size() > 0) {
-            oneStepForAllPrg(prgList);
+
+        List<Integer> allSymTableAddresses = prgList.stream().map(p->p.getSymTable().getContent().values())
+                .map(this::getAddrFromValues)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+           prgList.get(0).getHeap().setContent(
+                    safeGarbageCollector(
+                            allSymTableAddresses,
+                            prgList.get(0).getHeap().getContent()
+                    )
+            );
+            try {
+                oneStepForAllPrg(prgList);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
             prgList = removeCompletedPrg(repo.getPrgList());
         }
@@ -97,6 +109,7 @@ public class Controller implements IController {
 
         repo.setPrgList(prgList);
     }
+
     private List<PrgState> removeCompletedPrograms(List<PrgState> programList) {
         return programList.stream().filter(PrgState::isNotCompleted).toList();
     }

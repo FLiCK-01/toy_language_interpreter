@@ -33,6 +33,10 @@ public class Repository implements IRepo {
     public void logPrgState(PrgState prgState) throws IOException, RepoException {
         try (PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)))) {
             PrgState prg = prgState;
+
+            logFile.flush();
+            logFile.println("ID: " + prg.getId());
+
             logFile.println("ExeStack: ");
             MyIStack<IStmt> stack = prg.getExeStack();
 
