@@ -3,6 +3,7 @@ package model.expressions;
 import exception.MyException;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
+import model.types.IType;
 import model.types.IntType;
 import model.values.BoolValue;
 import model.values.IValue;
@@ -56,6 +57,18 @@ public class RelationalExpression implements IExp{
     @Override
     public IExp deepCopy() {
         return new RelationalExpression(exp1.deepCopy(), exp2.deepCopy(), operator);
+    }
+
+    @Override
+    public IType typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType v1 = exp1.typeCheck(typeEnv);
+        IType v2 = exp2.typeCheck(typeEnv);
+
+        if(v1.equals(new IntType())) {
+            if(v2.equals(new IntType())) {
+                return new IntType();
+            } else throw new MyException("second operand is not an integer");
+        } else throw new MyException("first operand is not an integer");
     }
 
     @Override

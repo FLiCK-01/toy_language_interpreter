@@ -2,9 +2,11 @@ package model.statements;
 
 import exception.MyException;
 import model.PrgState;
+import model.adt.MyIDictionary;
 import model.adt.MyIStack;
 import model.expressions.IExp;
 import model.types.BoolType;
+import model.types.IType;
 import model.values.BoolValue;
 import model.values.IValue;
 
@@ -38,6 +40,14 @@ public class WhileStmt implements IStmt{
     @Override
     public IStmt deepCopy() {
         return new WhileStmt(exp.deepCopy(), stmt.deepCopy());
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType typeExp = exp.typeCheck(typeEnv);
+        if(typeExp.equals(new BoolType())) {
+            return typeEnv;
+        } else throw new MyException("expression is not boolean");
     }
 
     @Override

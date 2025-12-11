@@ -2,8 +2,10 @@ package model.statements;
 
 import exception.MyException;
 import model.PrgState;
+import model.adt.MyIDictionary;
 import model.adt.MyIStack;
 import model.adt.MyStack;
+import model.types.IType;
 
 public class ForkStmt implements IStmt{
     private final IStmt inner;
@@ -20,6 +22,11 @@ public class ForkStmt implements IStmt{
     @Override
     public IStmt deepCopy() {
         return new ForkStmt(inner.deepCopy());
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        return inner.typeCheck(typeEnv);
     }
 
     @Override

@@ -5,6 +5,7 @@ import model.PrgState;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.expressions.IExp;
+import model.types.IType;
 import model.values.IValue;
 
 public class PrintStmt implements IStmt{
@@ -28,5 +29,11 @@ public class PrintStmt implements IStmt{
     @Override
     public IStmt deepCopy() {
         return new PrintStmt(this.exp);
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        exp.typeCheck(typeEnv);
+        return typeEnv;
     }
 }

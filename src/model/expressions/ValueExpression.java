@@ -3,6 +3,7 @@ package model.expressions;
 import exception.MyException;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
+import model.types.IType;
 import model.values.IValue;
 
 public class ValueExpression implements IExp {
@@ -18,6 +19,11 @@ public class ValueExpression implements IExp {
     @Override
     public IExp deepCopy() {
         return new ValueExpression(this.val);
+    }
+
+    @Override
+    public IType typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        return val.getType();
     }
 
     @Override

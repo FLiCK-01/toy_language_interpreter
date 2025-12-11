@@ -5,6 +5,7 @@ import model.PrgState;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.expressions.IExp;
+import model.types.IType;
 import model.types.IntType;
 import model.types.StringType;
 import model.values.IValue;
@@ -75,6 +76,14 @@ public class ReadFile implements IStmt{
     @Override
     public IStmt deepCopy() {
         return new ReadFile(this.exp, var_name);
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType type = exp.typeCheck(typeEnv);
+        if(type.equals(new StringType())) {
+            return typeEnv;
+        } else throw new MyException("file name is not a string");
     }
 
     @Override

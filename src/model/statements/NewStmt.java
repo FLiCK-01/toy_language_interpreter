@@ -52,6 +52,15 @@ public class NewStmt implements IStmt{
     }
 
     @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType typeVar = typeEnv.get(var_name);
+        IType typeExp = exp.typeCheck(typeEnv);
+        if(typeVar.equals(new RefType(typeExp))){
+            return typeEnv;
+        } else throw new MyException("right hand side and left hand side are of different types");
+    }
+
+    @Override
     public String toString() {
         return "new(" + var_name + ", " + exp.toString() + ")";
     }

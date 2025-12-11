@@ -2,6 +2,7 @@ package model.statements;
 
 import exception.MyException;
 import model.PrgState;
+import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.types.BoolType;
 import model.types.IType;
@@ -41,5 +42,15 @@ public class IfStmt implements IStmt {
     @Override
     public IStmt deepCopy() {
         return new IfStmt(exp, thenS.deepCopy(), elseS.deepCopy());
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType typeExp = exp.typeCheck(typeEnv);
+        if(typeExp.equals(new BoolType())) {
+            thenS.typeCheck(typeEnv);
+            elseS.typeCheck(typeEnv);
+            return typeEnv;
+        } else throw new MyException("if condition is not boolean");
     }
 }

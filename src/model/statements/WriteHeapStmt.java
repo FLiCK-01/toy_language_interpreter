@@ -58,6 +58,14 @@ public class WriteHeapStmt implements IStmt{
     }
 
     @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws MyException {
+        IType type = typeEnv.get(varName);
+        if(type instanceof RefType) {
+            return typeEnv;
+        } else throw new MyException("variable is not of ref type");
+    }
+
+    @Override
     public String toString() {
         return "wH(" + varName + ", " + exp.toString() + ")";
     }
