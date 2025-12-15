@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 
 public class Interpreter {
     public static void main(String[] args) {
+        TextMenu menu = new TextMenu();
 
         IStmt ex1 = new CompStmt(
                 new VarDeclStmt("v", new IntType()),
@@ -33,11 +34,7 @@ public class Interpreter {
                         )
                 )
         );
-
-        PrgState prg1 = createPrgState(ex1);
-        IRepo repo1 = new Repository("log1.txt");
-        repo1.addPrgState(prg1);
-        IController ctr1 = new Controller(repo1);
+        runTypeCheckAndAdd(menu, "1", ex1, "log1.txt");
 
         IStmt ex2 = new CompStmt(
                 new VarDeclStmt("a", new RefType(new IntType())),
@@ -51,17 +48,9 @@ public class Interpreter {
                         )
                 )
         );
+        runTypeCheckAndAdd(menu, "2", ex2, "log2.txt");
 
-        PrgState prg2 = createPrgState(ex2);
-        IRepo repo2 = new Repository("log2.txt");
-        repo2.addPrgState(prg2);
-        IController ctr2 = new Controller(repo2);
-
-        TextMenu menu = new TextMenu();
-        menu.addCommand(new RunExample("1", ex1.toString(), ctr1));
-        menu.addCommand(new RunExample("2", ex2.toString(), ctr2));
         menu.addCommand(new ExitCommand("0", "exit"));
-
         menu.show();
     }
 
@@ -73,5 +62,27 @@ public class Interpreter {
         MyIHeap heap = new MyHeap();
 
         return new PrgState(exeStack, symTable, out, originalProgram, fileTable, heap);
+    }
+
+    private static void runTypeCheckAndAdd(TextMenu menu, String key, IStmt stmt, String logFile) {
+        try {
+            stmt.typeCheck(new MyDictionary<>());
+
+            try (java.io.PrintWriter logWriter = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.FileWriter(logFile, false)))) {
+                logWriter.println("TypeCheck passed successfully for Example " + key);
+            } catch (java.io.IOException e) {
+                System.out.println("Could not write to log file: " + e.getMessage());
+            }
+
+            PrgState prg = createPrgState(stmt);
+            IRepo repo = new Repository(logFile);
+            repo.addPrgState(prg);
+            IController ctr = new Controller(repo);
+
+            menu.addCommand(new RunExample(key, stmt.toString(), ctr));
+
+        } catch (Exception e) {
+            System.out.println("Example " + key + " failed type check: " + e.getMessage());
+        }
     }
 }

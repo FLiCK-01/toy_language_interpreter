@@ -1,3 +1,4 @@
+TypeCheck passed successfully for Example 2
 ID: 2
 ExeStack: 
 (VarDeclStmt{name=a, type=Ref(int)};(new(a, ValueExpression{val=10});(fork((new(a, ValueExpression{val=50});nop));(print(rH(VariableExpression{id=a}));nop))))
@@ -126,7 +127,7 @@ Heap:
 1 -> 10
 -------------------------------------------
 
-ID: 3
+ID: 4
 ExeStack: 
 (new(a, ValueExpression{val=50});nop)
 SymTable:
@@ -148,7 +149,7 @@ Heap:
 1 -> 10
 -------------------------------------------
 
-ID: 3
+ID: 4
 ExeStack: 
 (new(a, ValueExpression{val=50});nop)
 SymTable:
@@ -171,7 +172,7 @@ Heap:
 1 -> 10
 -------------------------------------------
 
-ID: 3
+ID: 4
 ExeStack: 
 nop
 new(a, ValueExpression{val=50})
@@ -195,7 +196,7 @@ Heap:
 1 -> 10
 -------------------------------------------
 
-ID: 3
+ID: 4
 ExeStack: 
 nop
 new(a, ValueExpression{val=50})
@@ -220,7 +221,7 @@ Heap:
 2 -> 50
 -------------------------------------------
 
-ID: 3
+ID: 4
 ExeStack: 
 nop
 SymTable:
@@ -246,7 +247,7 @@ Heap:
 2 -> 50
 -------------------------------------------
 
-ID: 3
+ID: 4
 ExeStack: 
 nop
 SymTable:
@@ -271,7 +272,7 @@ Heap:
 2 -> 50
 -------------------------------------------
 
-ID: 3
+ID: 4
 ExeStack: 
 SymTable:
 a ---> RefValue{address=2, locationType=int}
