@@ -7,4 +7,5 @@ public interface MyIStack<T> {
     void push(T value);
     boolean isEmpty();
     List<T> getValues();
+    public List<T> getReverse();
 }

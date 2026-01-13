@@ -26,6 +26,7 @@ public class Controller implements IController {
     private boolean displayFlag = false;
     public Controller(IRepo repo) {
         this.repo = repo;
+        this.executor = Executors.newFixedThreadPool(2);
     }
 
     Map<Integer, IValue> safeGarbageCollector(List<Integer> symTableAddr, Map<Integer, IValue> heap) {
@@ -133,6 +134,11 @@ public class Controller implements IController {
     @Override
     public void clearPrgState() {
         repo.clearPrgState();
+    }
+
+    @Override
+    public IRepo getRepo() {
+        return repo;
     }
 
 }

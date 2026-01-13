@@ -3,6 +3,7 @@ package controller;
 import exception.MyException;
 import exception.RepoException;
 import model.PrgState;
+import repository.IRepo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,4 +16,6 @@ public interface IController {
     boolean getDisplayFlag();
     void addPrgState(PrgState prgState);
     void clearPrgState();
+    public IRepo getRepo();
+    public List<PrgState> removeCompletedPrg(List<PrgState> prgs);
 }

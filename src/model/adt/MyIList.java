@@ -5,4 +5,5 @@ import java.util.List;
 public interface MyIList<T> {
     void add(T value);
     List<T> getValues();
+    public List<T> getList();
 }

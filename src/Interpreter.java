@@ -37,7 +37,7 @@ public class Interpreter {
         runTypeCheckAndAdd(menu, "1", ex1, "log1.txt");
 
         IStmt ex2 = new CompStmt(
-                new VarDeclStmt("a", new RefType(new IntType())),
+                new VarDeclStmt("a", new RefType(new BoolType())),
                 new CompStmt(
                         new NewStmt("a", new ValueExpression(new IntValue(10))),
                         new CompStmt(
@@ -81,7 +81,7 @@ public class Interpreter {
 
             menu.addCommand(new RunExample(key, stmt.toString(), ctr));
 
-        } catch (Exception e) {
+        } catch (MyException e) {
             System.out.println("Example " + key + " failed type check: " + e.getMessage());
         }
     }

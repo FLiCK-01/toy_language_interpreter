@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.ProgramExecutorController"
+      alignment="CENTER" spacing="10" style="-fx-padding: 20;"
+      stylesheets="@style.css">
+
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <Button text="Go Back" onAction="#backToMenu" style="-fx-background-color: #e74c3c;"/>
+        <Label text="Number of PrgStates"/>
+        <TextField fx:id="numberOfPrgStatesTextField" editable="false" prefWidth="50"/>
+    </HBox>
+
+    <HBox spacing="10" VBox.vgrow="ALWAYS">
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="HeapTable"/>
+            <TableView fx:id="heapTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="addressColumn" text="Address"/>
+                    <TableColumn fx:id="valueColumn" text="Value"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Out"/>
+            <ListView fx:id="outListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="FileTable"/>
+            <ListView fx:id="fileTableListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="10" VBox.vgrow="ALWAYS">
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="PrgState IDs"/>
+            <ListView fx:id="prgStateIdentifiersListView" onMouseClicked="#changeProgramState" VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Symbol Table"/>
+            <TableView fx:id="symbolTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="variableNameColumn" text="Var Name"/>
+                    <TableColumn fx:id="variableValueColumn" text="Value"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Execution Stack"/>
+            <ListView fx:id="executionStackListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </HBox>
+
+    <Button fx:id="runOneStepButton" text="Run One Step" onAction="#runOneStep" prefWidth="300" style="-fx-font-size: 14px;"/>
+</VBox>
