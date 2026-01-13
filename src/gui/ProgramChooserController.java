@@ -102,7 +102,7 @@ public class ProgramChooserController {
         allExamples.add(new ExampleWrapper(ex3, "3. Heap Alloc & Reading"));
 
         IStmt ex4 = new CompStmt(
-                new VarDeclStmt("counter", new IntType()),
+                new VarDeclStmt("counter", new BoolType()),
                 new CompStmt(
                         new ForkStmt(
                                 new CompStmt(
@@ -118,6 +118,7 @@ public class ProgramChooserController {
                                         )
                                 )
                         ),
+
                         new PrintStmt(new ValueExpression(new IntValue(0)))
                 )
         );

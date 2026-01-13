@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 public class MainGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // This loads your "ProgramChooser.fxml" file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProgramChooser.fxml"));
         Parent root = loader.load();
 
