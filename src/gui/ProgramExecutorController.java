@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import model.PrgState;
 import model.statements.IStmt;
 import model.values.IValue;
@@ -20,6 +21,7 @@ import model.values.StringValue;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,6 +53,14 @@ public class ProgramExecutorController {
     private ListView<String> executionStackListView;
     @FXML
     private Button runOneStepButton;
+    @FXML
+    private TableView<Map.Entry<Integer, Pair<Integer, List<Integer>>>> barrierTableView;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Pair<Integer, List<Integer>>>, String> barrierIndexColumn;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Pair<Integer, List<Integer>>>, String> barrierValueColumn;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Pair<Integer, List<Integer>>>, String> barrierListColumn;
 
     public void setController(IController controller) {
         this.controller = controller;
@@ -64,6 +74,10 @@ public class ProgramExecutorController {
 
         variableNameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         variableValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
+
+        barrierIndexColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey().toString()));
+        barrierValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().getKey().toString()));
+        barrierListColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().getValue().toString()));
 
         prgStateIdentifiersListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -87,12 +101,11 @@ public class ProgramExecutorController {
 
             if (programStates.size() > 0) {
                 controller.oneStepForAllPrg(programStates);
+                populate();
 
                 programStates = controller.removeCompletedPrg(controller.getRepo().getPrgList());
 
                 controller.getRepo().setPrgList(programStates);
-
-                populate();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Program finished", ButtonType.OK);
                 alert.showAndWait();
@@ -110,6 +123,7 @@ public class ProgramExecutorController {
         populateOut();
         populateSymbolTable();
         populateExecutionStack();
+        populateBarrierTable();
     }
 
     private void populateHeap() {
@@ -170,6 +184,14 @@ public class ProgramExecutorController {
             }
         }
         executionStackListView.setItems(FXCollections.observableList(exeStackList));
+    }
+    private void populateBarrierTable() {
+        if(controller.getRepo().getPrgList().size() > 0) {
+            Map<Integer, Pair<Integer, List<Integer>>> barrierTable = controller.getRepo().getPrgList().get(0).getBarrierTable().getContent();
+            List<Map.Entry<Integer, Pair<Integer, List<Integer>>>> barrierList = new ArrayList<>(barrierTable.entrySet());
+            barrierTableView.setItems(FXCollections.observableList(barrierList));
+            barrierTableView.refresh();
+        }
     }
 
     private PrgState getCurrentProgramState(){

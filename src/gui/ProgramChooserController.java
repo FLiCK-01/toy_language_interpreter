@@ -1,5 +1,6 @@
 package gui;
 
+import com.sun.jdi.Value;
 import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -12,10 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import model.PrgState;
-import model.adt.MyDictionary;
-import model.adt.MyHeap;
-import model.adt.MyList;
-import model.adt.MyStack;
+import model.adt.*;
 import model.expressions.*;
 import model.statements.*;
 import model.types.*;
@@ -183,6 +181,96 @@ public class ProgramChooserController {
         );
         allExamples.add(new ExampleWrapper(ex6, "6. File I/O: Open, Read, Print, Close"));
 
+        IStmt ex7 = new CompStmt(
+                new VarDeclStmt("v", new IntType()),
+                new CompStmt(
+                        new VarDeclStmt("x", new IntType()),
+                        new CompStmt(
+                                new VarDeclStmt("y", new IntType()),
+                                new CompStmt(
+                                        new AssignStmt("v", new ValueExpression(new IntValue(0))),
+                                        new CompStmt(
+                                                new RepeatUntilStmt(
+                                                        new CompStmt(
+                                                                new ForkStmt(
+                                                                        new CompStmt(
+                                                                                new PrintStmt(new VariableExpression("v")),
+                                                                                new AssignStmt("v", new ArithmeticalExpression(new VariableExpression("v"), new ValueExpression(new IntValue(1)), ArithmeticalOperators.SUBTRACT)))
+                                                                ),
+                                                                new AssignStmt("v", new ArithmeticalExpression(new VariableExpression("v"), new ValueExpression(new IntValue(1)), ArithmeticalOperators.ADD))
+                                                        ),
+                                                        new RelationalExpression(new VariableExpression("v"), new ValueExpression(new IntValue(3)), RelationalOperator.EQUAL)
+                                                ),
+                                                new CompStmt(
+                                                        new AssignStmt("x", new ValueExpression(new IntValue(1))),
+                                                        new CompStmt(
+                                                                new NopStmt(),
+                                                                new PrintStmt(new ArithmeticalExpression(new VariableExpression("v"), new ValueExpression(new IntValue(10)), ArithmeticalOperators.MULTIPLY))
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+        allExamples.add(new ExampleWrapper(ex7, "7. Testing Repeat... Until"));
+
+        IStmt ex8 = new CompStmt(
+                new VarDeclStmt("v1", new RefType(new IntType())),
+                new CompStmt(
+                        new VarDeclStmt("v2", new RefType(new IntType())),
+                        new CompStmt(
+                                new VarDeclStmt("v3", new RefType(new IntType())),
+                                new CompStmt(
+                                        new VarDeclStmt("cnt", new IntType()),
+                                        new CompStmt(
+                                                new NewStmt("v1", new ValueExpression(new IntValue(2))),
+                                                new CompStmt(
+                                                        new NewStmt("v2", new ValueExpression(new IntValue(3))),
+                                                        new CompStmt(
+                                                                new NewStmt("v3", new ValueExpression(new IntValue(4))),
+                                                                new CompStmt(
+                                                                        new NewBarrierStmt("cnt", new ReadHeapExp(new VariableExpression("v2"))), // Barrier capacity = 3
+                                                                        new CompStmt(
+                                                                                new ForkStmt(
+                                                                                        new CompStmt(
+                                                                                                new AwaitStmt("cnt"),
+                                                                                                new CompStmt(
+                                                                                                        new WriteHeapStmt("v1", new ArithmeticalExpression(new ReadHeapExp(new VariableExpression("v1")), new ValueExpression(new IntValue(10)), ArithmeticalOperators.MULTIPLY)),
+                                                                                                        new PrintStmt(new ReadHeapExp(new VariableExpression("v1")))
+                                                                                                )
+                                                                                        )
+                                                                                ),
+                                                                                new CompStmt(
+                                                                                        new ForkStmt(
+                                                                                                new CompStmt(
+                                                                                                        new AwaitStmt("cnt"),
+                                                                                                        new CompStmt(
+                                                                                                                new WriteHeapStmt("v2", new ArithmeticalExpression(new ReadHeapExp(new VariableExpression("v2")), new ValueExpression(new IntValue(10)), ArithmeticalOperators.MULTIPLY)),
+                                                                                                                new CompStmt(
+                                                                                                                        new WriteHeapStmt("v2", new ArithmeticalExpression(new ReadHeapExp(new VariableExpression("v2")), new ValueExpression(new IntValue(10)), ArithmeticalOperators.MULTIPLY)),
+                                                                                                                        new PrintStmt(new ReadHeapExp(new VariableExpression("v2")))
+                                                                                                                )
+                                                                                                        )
+                                                                                                )
+                                                                                        ),
+                                                                                        new CompStmt(
+                                                                                                new AwaitStmt("cnt"),
+                                                                                                new PrintStmt(new ReadHeapExp(new VariableExpression("v3")))
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+        allExamples.add(new ExampleWrapper(ex8, "8. CyclicBarrier: {4,20,300}"));
+
         programsListView.setItems(FXCollections.observableArrayList(allExamples));
     }
 
@@ -203,7 +291,7 @@ public class ProgramChooserController {
             selectedStmt.typeCheck(new MyDictionary<String, IType>());
 
             // Create PrgState
-            PrgState prgState = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), selectedStmt, new MyDictionary<>(), new MyHeap());
+            PrgState prgState = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), selectedStmt, new MyDictionary<>(), new MyHeap(), new MyBarrierTable());
             Repository repo = new Repository("log.txt");
             repo.addPrgState(prgState);
             Controller controller = new Controller(repo);

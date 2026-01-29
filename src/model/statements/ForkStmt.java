@@ -16,7 +16,7 @@ public class ForkStmt implements IStmt{
 
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        return new PrgState(new MyStack<>(),state.getSymTable().deepCopy(),state.getOut(),inner,state.getFileTable(),state.getHeap());
+        return new PrgState(new MyStack<>(),state.getSymTable().deepCopy(),state.getOut(),inner,state.getFileTable(),state.getHeap(), state.getBarrierTable());
     }
 
     @Override
