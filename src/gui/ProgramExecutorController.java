@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.PrgState;
+import model.adt.MyILatchTable;
 import model.statements.IStmt;
 import model.values.IValue;
 import model.values.StringValue;
@@ -50,6 +51,12 @@ public class ProgramExecutorController {
     @FXML
     private ListView<String> executionStackListView;
     @FXML
+    private TableView<Map.Entry<Integer, Integer>> latchTableView;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Integer>, String> latchLocationColumn;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Integer>, String> latchValueColumn;
+    @FXML
     private Button runOneStepButton;
 
     public void setController(IController controller) {
@@ -64,6 +71,9 @@ public class ProgramExecutorController {
 
         variableNameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         variableValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
+
+        latchLocationColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey().toString()));
+        latchValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
 
         prgStateIdentifiersListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -87,12 +97,11 @@ public class ProgramExecutorController {
 
             if (programStates.size() > 0) {
                 controller.oneStepForAllPrg(programStates);
+                populate();
 
                 programStates = controller.removeCompletedPrg(controller.getRepo().getPrgList());
 
                 controller.getRepo().setPrgList(programStates);
-
-                populate();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Program finished", ButtonType.OK);
                 alert.showAndWait();
@@ -110,6 +119,7 @@ public class ProgramExecutorController {
         populateOut();
         populateSymbolTable();
         populateExecutionStack();
+        populateLatchTable();
     }
 
     private void populateHeap() {
@@ -170,6 +180,15 @@ public class ProgramExecutorController {
             }
         }
         executionStackListView.setItems(FXCollections.observableList(exeStackList));
+    }
+
+    private void populateLatchTable() {
+        if(controller.getRepo().getPrgList().size() > 0) {
+            MyILatchTable latchTable = controller.getRepo().getPrgList().get(0).getLatchTable();
+            List<Map.Entry<Integer, Integer>> latchList = new ArrayList<>(latchTable.getContent().entrySet());
+            latchTableView.setItems(FXCollections.observableList(latchList));
+            latchTableView.refresh();
+        }
     }
 
     private PrgState getCurrentProgramState(){

@@ -63,6 +63,19 @@
             <Label text="Execution Stack"/>
             <ListView fx:id="executionStackListView" VBox.vgrow="ALWAYS"/>
         </VBox>
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Latch Table"/>
+            <TableView fx:id="latchTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="latchLocationColumn" text="Location"/>
+                    <TableColumn fx:id="latchValueColumn" text="Value (Count)"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
     </HBox>
 
     <Button fx:id="runOneStepButton" text="Run One Step" onAction="#runOneStep" prefWidth="300" style="-fx-font-size: 14px;"/>

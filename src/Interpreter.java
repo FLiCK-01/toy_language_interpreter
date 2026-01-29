@@ -60,8 +60,9 @@ public class Interpreter {
         MyIList<IValue> out = new MyList<>();
         MyIDictionary<StringValue, BufferedReader> fileTable = new MyDictionary<>();
         MyIHeap heap = new MyHeap();
+        MyILatchTable latchTable = new MyLatchTable();
 
-        return new PrgState(exeStack, symTable, out, originalProgram, fileTable, heap);
+        return new PrgState(exeStack, symTable, out, originalProgram, fileTable, heap, latchTable);
     }
 
     private static void runTypeCheckAndAdd(TextMenu menu, String key, IStmt stmt, String logFile) {
