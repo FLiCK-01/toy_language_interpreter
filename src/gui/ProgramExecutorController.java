@@ -87,12 +87,12 @@ public class ProgramExecutorController {
 
             if (programStates.size() > 0) {
                 controller.oneStepForAllPrg(programStates);
+                populate();
 
                 programStates = controller.removeCompletedPrg(controller.getRepo().getPrgList());
 
                 controller.getRepo().setPrgList(programStates);
 
-                populate();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Program finished", ButtonType.OK);
                 alert.showAndWait();
