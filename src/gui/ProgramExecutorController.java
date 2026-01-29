@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.PrgState;
+import model.adt.MyILockTable;
 import model.statements.IStmt;
 import model.values.IValue;
 import model.values.StringValue;
@@ -50,6 +51,12 @@ public class ProgramExecutorController {
     @FXML
     private ListView<String> executionStackListView;
     @FXML
+    private TableView<Map.Entry<Integer, Integer>> lockTableView;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Integer>, String> lockLocationColumn;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Integer>, String> lockValueColumn;
+    @FXML
     private Button runOneStepButton;
 
     public void setController(IController controller) {
@@ -64,6 +71,9 @@ public class ProgramExecutorController {
 
         variableNameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         variableValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
+
+        lockLocationColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey().toString()));
+        lockValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
 
         prgStateIdentifiersListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -87,12 +97,11 @@ public class ProgramExecutorController {
 
             if (programStates.size() > 0) {
                 controller.oneStepForAllPrg(programStates);
+                populate();
 
                 programStates = controller.removeCompletedPrg(controller.getRepo().getPrgList());
 
                 controller.getRepo().setPrgList(programStates);
-
-                populate();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Program finished", ButtonType.OK);
                 alert.showAndWait();
@@ -110,6 +119,7 @@ public class ProgramExecutorController {
         populateOut();
         populateSymbolTable();
         populateExecutionStack();
+        populateLockTable();
     }
 
     private void populateHeap() {
@@ -170,6 +180,15 @@ public class ProgramExecutorController {
             }
         }
         executionStackListView.setItems(FXCollections.observableList(exeStackList));
+    }
+
+    private void populateLockTable() {
+        if(controller.getRepo().getPrgList().size() > 0) {
+            MyILockTable lockTable = controller.getRepo().getPrgList().get(0).getLockTable();
+            List<Map.Entry<Integer, Integer>> lockList = new ArrayList<>(lockTable.getContent().entrySet());
+            lockTableView.setItems(FXCollections.observableList(lockList));
+            lockTableView.refresh();
+        }
     }
 
     private PrgState getCurrentProgramState(){
