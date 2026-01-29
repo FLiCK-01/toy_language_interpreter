@@ -12,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import model.PrgState;
+import model.adt.MyISemaphoreTable;
 import model.statements.IStmt;
 import model.values.IValue;
 import model.values.StringValue;
@@ -50,6 +52,14 @@ public class ProgramExecutorController {
     @FXML
     private ListView<String> executionStackListView;
     @FXML
+    private TableView<Map.Entry<Integer, Pair<Integer, List<Integer>>>> semaphoreTableView;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Pair<Integer, List<Integer>>>, String> semaphoreIndexColumn;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Pair<Integer, List<Integer>>>, String> semaphoreValueColumn;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Pair<Integer, List<Integer>>>, String> semaphoreListColumn;
+    @FXML
     private Button runOneStepButton;
 
     public void setController(IController controller) {
@@ -64,6 +74,10 @@ public class ProgramExecutorController {
 
         variableNameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         variableValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
+
+        semaphoreIndexColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey().toString()));
+        semaphoreValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().getKey().toString()));
+        semaphoreListColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().getValue().toString()));
 
         prgStateIdentifiersListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -110,6 +124,7 @@ public class ProgramExecutorController {
         populateOut();
         populateSymbolTable();
         populateExecutionStack();
+        populateSemaphoreTable();
     }
 
     private void populateHeap() {
@@ -170,6 +185,15 @@ public class ProgramExecutorController {
             }
         }
         executionStackListView.setItems(FXCollections.observableList(exeStackList));
+    }
+
+    private void populateSemaphoreTable() {
+        if (controller.getRepo().getPrgList().size() > 0) {
+            MyISemaphoreTable semTable = controller.getRepo().getPrgList().get(0).getSemaphoreTable();
+            List<Map.Entry<Integer, Pair<Integer, List<Integer>>>> semList = new ArrayList<>(semTable.getContent().entrySet());
+            semaphoreTableView.setItems(FXCollections.observableList(semList));
+            semaphoreTableView.refresh();
+        }
     }
 
     private PrgState getCurrentProgramState(){

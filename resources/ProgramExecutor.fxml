@@ -63,6 +63,20 @@
             <Label text="Execution Stack"/>
             <ListView fx:id="executionStackListView" VBox.vgrow="ALWAYS"/>
         </VBox>
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="Semaphore Table"/>
+            <TableView fx:id="semaphoreTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="semaphoreIndexColumn" text="Index"/>
+                    <TableColumn fx:id="semaphoreValueColumn" text="Value (N)"/>
+                    <TableColumn fx:id="semaphoreListColumn" text="List of IDs"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
     </HBox>
 
     <Button fx:id="runOneStepButton" text="Run One Step" onAction="#runOneStep" prefWidth="300" style="-fx-font-size: 14px;"/>
