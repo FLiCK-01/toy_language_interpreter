@@ -39,149 +39,22 @@ public class ProgramChooserController {
                 new CompStmt(
                         new NewStmt("a", new ValueExpression(new IntValue(20))),
                         new CompStmt(
-                                new ForkStmt(
-                                        new CompStmt(
-                                                new WriteHeapStmt("a", new ValueExpression(new IntValue(100))),
-                                                new PrintStmt(new ReadHeapExp(new VariableExpression("a")))
-                                        )
-                                ),
-                                new CompStmt(
+                                new ForStmt("v",
+                                        new ValueExpression(new IntValue(0)),
+                                        new ValueExpression(new IntValue(3)),
+                                        new ArithmeticalExpression(new VariableExpression("v"), new ValueExpression(new IntValue(1)), ArithmeticalOperators.ADD),
                                         new ForkStmt(
-                                                new CompStmt(
-                                                        new WriteHeapStmt("a", new ValueExpression(new IntValue(200))),
-                                                        new PrintStmt(new ReadHeapExp(new VariableExpression("a")))
-                                                )
-                                        ),
-                                        new PrintStmt(new ValueExpression(new IntValue(300)))
-                                )
-                        )
-                )
-        );
-        allExamples.add(new ExampleWrapper(ex1, "1. Simple Print: int v=2; print(v)"));
-
-        IStmt ex2 = new CompStmt(
-                new VarDeclStmt("v", new IntType()),
-                new CompStmt(
-                        new AssignStmt("v", new ValueExpression(new IntValue(1))),
-                        new CompStmt(
-                                new VarDeclStmt("num", new IntType()),
-                                new CompStmt(
-                                        new AssignStmt("num", new ValueExpression(new IntValue(5))),
-                                        new CompStmt(
-                                                new WhileStmt(
-                                                        new RelationalExpression(new VariableExpression("num"), new ValueExpression(new IntValue(0)), RelationalOperator.GREATER_THAN),
-                                                        new CompStmt(
-                                                                new AssignStmt("v", new ArithmeticalExpression(new VariableExpression("v"), new VariableExpression("num"), ArithmeticalOperators.MULTIPLY)),
-                                                                new AssignStmt("num", new ArithmeticalExpression(new VariableExpression("num"), new ValueExpression(new IntValue(1)), ArithmeticalOperators.SUBTRACT))
-                                                        )
-                                                ),
-                                                new PrintStmt(new VariableExpression("v"))
-                                        )
-                                )
-                        )
-                )
-        );
-        allExamples.add(new ExampleWrapper(ex2, "2. Arithmetic Operations"));
-
-        IStmt ex3 = new CompStmt(
-                new VarDeclStmt("v", new RefType(new IntType())),
-                new CompStmt(
-                        new NewStmt("v", new ValueExpression(new IntValue(20))),
-                        new CompStmt(
-                                new VarDeclStmt("a", new RefType(new RefType(new IntType()))),
-                                new CompStmt(
-                                        new NewStmt("a", new VariableExpression("v")),
-                                        new CompStmt(
-                                                new NewStmt("v", new ValueExpression(new IntValue(30))),
-                                                new PrintStmt(new ReadHeapExp(new ReadHeapExp(new VariableExpression("a"))))
-                                        )
-                                )
-                        )
-                )
-        );
-        allExamples.add(new ExampleWrapper(ex3, "3. Heap Alloc & Reading"));
-
-        IStmt ex4 = new CompStmt(
-                new VarDeclStmt("counter", new BoolType()),
-                new CompStmt(
-                        new ForkStmt(
-                                new CompStmt(
-                                        new ForkStmt(
-                                                new CompStmt(
-                                                        new AssignStmt("counter", new ValueExpression(new IntValue(100))),
-                                                        new PrintStmt(new VariableExpression("counter"))
-                                                )
-                                        ),
-                                        new CompStmt(
-                                                new AssignStmt("counter", new ValueExpression(new IntValue(50))),
-                                                new PrintStmt(new VariableExpression("counter"))
-                                        )
-                                )
-                        ),
-
-                        new PrintStmt(new ValueExpression(new IntValue(0)))
-                )
-        );
-        allExamples.add(new ExampleWrapper(ex4, "4. Nested Forks: Child & Grandchild Threads"));
-
-        IStmt ex5 = new CompStmt(
-                new VarDeclStmt("v", new IntType()),
-                new CompStmt(
-                        new VarDeclStmt("a", new RefType(new IntType())),
-                        new CompStmt(
-                                new AssignStmt("v", new ValueExpression(new IntValue(10))),
-                                new CompStmt(
-                                        new NewStmt("a", new ValueExpression(new IntValue(22))),
-                                        new CompStmt(
-                                                new ForkStmt(
-                                                        new CompStmt(
-                                                                new WriteHeapStmt("a", new ValueExpression(new IntValue(30))),
-                                                                new CompStmt(
-                                                                        new AssignStmt("v", new ValueExpression(new IntValue(32))),
-                                                                        new CompStmt(
-                                                                                new PrintStmt(new VariableExpression("v")),
-                                                                                new PrintStmt(new ReadHeapExp(new VariableExpression("a")))
-                                                                        )
-                                                                )
-                                                        )
-                                                ),
                                                 new CompStmt(
                                                         new PrintStmt(new VariableExpression("v")),
-                                                        new PrintStmt(new ReadHeapExp(new VariableExpression("a")))
+                                                        new AssignStmt("v", new ArithmeticalExpression(new VariableExpression("v"), new ReadHeapExp(new VariableExpression("a")), ArithmeticalOperators.MULTIPLY))
                                                 )
                                         )
-                                )
+                                ),
+                                new PrintStmt(new ReadHeapExp(new VariableExpression("a")))
                         )
                 )
         );
-        allExamples.add(new ExampleWrapper(ex5, "5. Complex: Forks, Heap Write & Shared Memory"));
-
-        IStmt ex6 = new CompStmt(
-                new VarDeclStmt("varf", new StringType()),
-                new CompStmt(
-                        new AssignStmt("varf", new ValueExpression(new StringValue("test.in"))),
-                        new CompStmt(
-                                new OpenRFile(new VariableExpression("varf")),
-                                new CompStmt(
-                                        new VarDeclStmt("varc", new IntType()),
-                                        new CompStmt(
-                                                new ReadFile(new VariableExpression("varf"), "varc"),
-                                                new CompStmt(
-                                                        new PrintStmt(new VariableExpression("varc")),
-                                                        new CompStmt(
-                                                                new ReadFile(new VariableExpression("varf"), "varc"),
-                                                                new CompStmt(
-                                                                        new PrintStmt(new VariableExpression("varc")),
-                                                                        new CloseRFile(new VariableExpression("varf"))
-                                                                )
-                                                        )
-                                                )
-                                        )
-                                )
-                        )
-                )
-        );
-        allExamples.add(new ExampleWrapper(ex6, "6. File I/O: Open, Read, Print, Close"));
+        allExamples.add(new ExampleWrapper(ex1, "1. For Loop: {0,1,2,20}"));
 
         programsListView.setItems(FXCollections.observableArrayList(allExamples));
     }
