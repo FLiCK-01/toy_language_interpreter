@@ -12,10 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import model.PrgState;
-import model.adt.MyDictionary;
-import model.adt.MyHeap;
-import model.adt.MyList;
-import model.adt.MyStack;
+import model.adt.*;
 import model.expressions.*;
 import model.statements.*;
 import model.types.*;
@@ -56,6 +53,104 @@ public class ProgramChooserController {
         );
         allExamples.add(new ExampleWrapper(ex1, "1. For Loop: {0,1,2,20}"));
 
+        IStmt ex2 = new CompStmt(
+                new VarDeclStmt("v1", new RefType(new IntType())),
+                new CompStmt(
+                        new VarDeclStmt("v2", new RefType(new IntType())),
+                        new CompStmt(
+                                new VarDeclStmt("x", new IntType()),
+                                new CompStmt(
+                                        new VarDeclStmt("q", new IntType()),
+                                        new CompStmt(
+                                                new NewStmt("v1", new ValueExpression(new IntValue(20))),
+                                                new CompStmt(
+                                                        new NewStmt("v2", new ValueExpression(new IntValue(30))),
+                                                        new CompStmt(
+                                                                new NewLockStmt("x"),
+                                                                new CompStmt(
+                                                                        new ForkStmt(
+                                                                                new CompStmt(
+                                                                                        new ForkStmt(
+                                                                                                new CompStmt(
+                                                                                                        new LockStmt("x"),
+                                                                                                        new CompStmt(
+                                                                                                                new WriteHeapStmt("v1", new ArithmeticalExpression( new ReadHeapExp(new VariableExpression("v1")), new ValueExpression(new IntValue(1)), ArithmeticalOperators.SUBTRACT)),
+                                                                                                                new UnlockStmt("x")
+                                                                                                        )
+                                                                                                )
+                                                                                        ),
+                                                                                        new CompStmt(
+                                                                                                new LockStmt("x"),
+                                                                                                new CompStmt(
+                                                                                                        new WriteHeapStmt("v1", new ArithmeticalExpression(new ReadHeapExp(new VariableExpression("v1")), new ValueExpression(new IntValue(10)), ArithmeticalOperators.MULTIPLY)),
+                                                                                                        new UnlockStmt("x")
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        ),
+                                                                        new CompStmt(
+                                                                                new NewLockStmt("q"),
+                                                                                new CompStmt(
+                                                                                        new ForkStmt(
+                                                                                                new CompStmt(
+                                                                                                        new ForkStmt(
+                                                                                                                new CompStmt(
+                                                                                                                        new LockStmt("q"),
+                                                                                                                        new CompStmt(
+                                                                                                                                new WriteHeapStmt("v2", new ArithmeticalExpression(new ReadHeapExp(new VariableExpression("v2")), new ValueExpression(new IntValue(5)), ArithmeticalOperators.ADD)),
+                                                                                                                                new UnlockStmt("q")
+                                                                                                                        )
+                                                                                                                )
+                                                                                                        ),
+                                                                                                        new CompStmt(
+                                                                                                                new LockStmt("q"),
+                                                                                                                new CompStmt(
+                                                                                                                        new WriteHeapStmt("v2", new ArithmeticalExpression(new ReadHeapExp(new VariableExpression("v2")), new ValueExpression(new IntValue(10)), ArithmeticalOperators.MULTIPLY)),
+                                                                                                                        new UnlockStmt("q")
+                                                                                                                )
+                                                                                                        )
+                                                                                                )
+                                                                                        ),
+                                                                                        new CompStmt(
+                                                                                                new NopStmt(),
+                                                                                                new CompStmt(
+                                                                                                        new NopStmt(),
+                                                                                                        new CompStmt(
+                                                                                                                new NopStmt(),
+                                                                                                                new CompStmt(
+                                                                                                                        new NopStmt(),
+                                                                                                                        new CompStmt(
+                                                                                                                                new LockStmt("x"),
+                                                                                                                                new CompStmt(
+                                                                                                                                        new PrintStmt(new ReadHeapExp(new VariableExpression("v1"))),
+                                                                                                                                        new CompStmt(
+                                                                                                                                                new UnlockStmt("x"),
+                                                                                                                                                new CompStmt(
+                                                                                                                                                        new LockStmt("q"),
+                                                                                                                                                        new CompStmt(
+                                                                                                                                                                new PrintStmt(new ReadHeapExp(new VariableExpression("v2"))),
+                                                                                                                                                                new UnlockStmt("q")
+                                                                                                                                                        )
+                                                                                                                                                )
+                                                                                                                                        )
+                                                                                                                                )
+                                                                                                                        )
+                                                                                                                )
+                                                                                                        )
+                                                                                                )
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+        allExamples.add(new ExampleWrapper(ex2, "2. Lock Mechanism: {190/199, 350/305}"));
+
         programsListView.setItems(FXCollections.observableArrayList(allExamples));
     }
 
@@ -76,7 +171,7 @@ public class ProgramChooserController {
             selectedStmt.typeCheck(new MyDictionary<String, IType>());
 
             // Create PrgState
-            PrgState prgState = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), selectedStmt, new MyDictionary<>(), new MyHeap());
+            PrgState prgState = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), selectedStmt, new MyDictionary<>(), new MyHeap(), new MyLockTable());
             Repository repo = new Repository("log.txt");
             repo.addPrgState(prgState);
             Controller controller = new Controller(repo);

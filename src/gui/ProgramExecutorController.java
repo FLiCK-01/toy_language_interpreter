@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.PrgState;
+import model.adt.MyILockTable;
 import model.statements.IStmt;
 import model.values.IValue;
 import model.values.StringValue;
@@ -50,6 +51,12 @@ public class ProgramExecutorController {
     @FXML
     private ListView<String> executionStackListView;
     @FXML
+    private TableView<Map.Entry<Integer, Integer>> lockTableView;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Integer>, String> lockLocationColumn;
+    @FXML
+    private TableColumn<Map.Entry<Integer, Integer>, String> lockValueColumn;
+    @FXML
     private Button runOneStepButton;
 
     public void setController(IController controller) {
@@ -64,6 +71,9 @@ public class ProgramExecutorController {
 
         variableNameColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey()));
         variableValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
+
+        lockLocationColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getKey().toString()));
+        lockValueColumn.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getValue().toString()));
 
         prgStateIdentifiersListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -110,6 +120,7 @@ public class ProgramExecutorController {
         populateOut();
         populateSymbolTable();
         populateExecutionStack();
+        populateLockTable();
     }
 
     private void populateHeap() {
@@ -170,6 +181,19 @@ public class ProgramExecutorController {
             }
         }
         executionStackListView.setItems(FXCollections.observableList(exeStackList));
+    }
+
+    private void populateLockTable() {
+        List<PrgState> prgList = controller.getRepo().getPrgList();
+
+        if(prgList.size()>0){
+            MyILockTable lockTable = prgList.get(0).getLockTable();
+
+            List<Map.Entry<Integer, Integer>> lockList = new ArrayList<>(lockTable.getContent().entrySet());
+
+            lockTableView.setItems(FXCollections.observableList(lockList));
+            lockTableView.refresh();
+        }
     }
 
     private PrgState getCurrentProgramState(){

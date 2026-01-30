@@ -1,10 +1,7 @@
 package model;
 
 import exception.MyException;
-import model.adt.MyIDictionary;
-import model.adt.MyIHeap;
-import model.adt.MyIList;
-import model.adt.MyIStack;
+import model.adt.*;
 import model.statements.IStmt;
 import model.values.IValue;
 import model.values.StringValue;
@@ -18,10 +15,11 @@ public class PrgState {
     private IStmt originalProgram;
     private MyIDictionary<StringValue, BufferedReader> fileTable;
     private MyIHeap heap;
+    private MyILockTable lockTable;
     private static int nextId = 0;
     private int id;
 
-    public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, IValue> symtbl, MyIList<IValue> ot, IStmt prg, MyIDictionary<StringValue, BufferedReader> filetbl, MyIHeap heap) {
+    public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, IValue> symtbl, MyIList<IValue> ot, IStmt prg, MyIDictionary<StringValue, BufferedReader> filetbl, MyIHeap heap, MyILockTable lockTable) {
         this.exeStack = stk;
         this.symTable = symtbl;
         this.out = ot;
@@ -30,6 +28,7 @@ public class PrgState {
         this.heap = heap;
         this.id = getNextId();
         this.exeStack.push(this.originalProgram);
+        this.lockTable = lockTable;
     }
 
     public MyIList<IValue> getOut() {
@@ -44,6 +43,7 @@ public class PrgState {
     public MyIHeap getHeap() {return heap;}
     public synchronized int getNextId() {return ++this.nextId;}
     public int getId() {return id;}
+    public MyILockTable getLockTable() {return lockTable;}
 
     public MyIDictionary<StringValue, BufferedReader> getFileTable() {
         return fileTable;
